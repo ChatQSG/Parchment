@@ -361,8 +361,9 @@ open class PagingViewController:
       break
     }
     
-    if let previouslySelected = state.currentPagingItem,
-      let pagingItem = updatedItems.first(where: { $0.isEqual(to: previouslySelected) }) {
+    if let previouslySelected = state.currentPagingItem as? PagingIndexItem,
+        let updatedItems = updatedItems as? [PagingIndexItem],
+        let pagingItem = updatedItems.first(where: { $0.index == previouslySelected.index }) {
       pagingController.reloadMenu(around: pagingItem)
     } else if let firstItem = updatedItems.first {
       pagingController.reloadMenu(around: firstItem)
